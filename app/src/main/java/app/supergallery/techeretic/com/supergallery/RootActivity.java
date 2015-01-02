@@ -5,13 +5,21 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.ArrayList;
+
+import app.supergallery.techeretic.com.filereader.FileHelper;
+
 
 public class RootActivity extends Activity {
+
+    ArrayList<String> mFilePaths = new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_root);
+        FileHelper fh = new FileHelper(this.getApplicationContext());
+        mFilePaths = fh.getFilePaths();
     }
 
 
