@@ -2,15 +2,21 @@ package app.supergallery.techeretic.com.supergallery;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import java.util.ArrayList;
 
 import app.supergallery.techeretic.com.filereader.FileHelper;
+import app.supergallery.techeretic.com.filereader.ImageAdapter;
 
 
-public class RootActivity extends Activity {
+public class RootActivity extends ActionBarActivity {
 
     ArrayList<String> mFilePaths = new ArrayList<String>();
 
@@ -20,28 +26,14 @@ public class RootActivity extends Activity {
         setContentView(R.layout.activity_root);
         FileHelper fh = new FileHelper(this.getApplicationContext());
         mFilePaths = fh.getFilePaths();
-    }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_root, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        Log.d("SuperGallery", "mFilePaths are as Follows: ");
+        for (String path : mFilePaths) {
+            Log.d("SuperGallery","path = " + path);
         }
-
-        return super.onOptionsItemSelected(item);
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.ListView);
+        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(3,
+                StaggeredGridLayoutManager.VERTICAL));
+        ImageAdapter imageAdapter = new ImageAdapter(mFilePaths, getApplicationContext());
+        recyclerView.setAdapter(imageAdapter);
     }
 }

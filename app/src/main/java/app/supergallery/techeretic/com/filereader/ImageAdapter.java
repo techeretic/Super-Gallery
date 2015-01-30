@@ -68,7 +68,9 @@ public class ImageAdapter extends
         // - replace the contents of the view with that element
         File imgFile = new  File(mImagePaths.get(position));
         Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
-        holder.mIView.setImageBitmap(myBitmap);
+        int nh = (int) ( myBitmap.getHeight() * (128.0 / myBitmap.getWidth()) );
+        Bitmap scaled = Bitmap.createScaledBitmap(myBitmap, 128, nh, true);
+        holder.mIView.setImageBitmap(scaled);
     }
 
     // Return the size of your dataset (invoked by the layout manager)
